@@ -11,11 +11,27 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
 ## Business facts (don't invent/change without asking)
 - Full name: Ynvents Media Group Inc., est. 2016
 - HQ: Fort Lauderdale, FL. Phone (754) 400-0067. Email info@ynvents.com
-- Markets: Fort Lauderdale (HQ, full-time crew), Miami (established), West Palm Beach (established),
-  Denver (established) — all full-time staff + hotel contracts.
-  Boston is a GROWING market only — do not claim same footprint as the others. Frame honestly
-  ("now serving," "expanding into") not "full-time crew" language.
-- Hotel partners named on site: Marriott, Hilton, Driftwood ("and much more")
+- Markets: Fort Lauderdale (HQ, full-time crew + house inventory), Miami (established),
+  West Palm Beach (established) — full-time staff + hotel contracts.
+  Denver (established) — full-time crew based in Denver AND house inventory stocked in the market,
+  serving the whole metro, with MULTIPLE standing hotel partnerships (a further contract was
+  signing the week of Aug 3 2026). Crew and inventory grow with each new property. "Full-time
+  crews and house inventory" is ACCURATE for Denver — confirmed by owner 2026-08-01.
+  (Do not re-soften this; a previous pass wrongly downgraded it.)
+  Owner has NOT approved naming any individual Denver property on the site — keep it generic.
+  Boston (established, UPDATED 2026-08-01) — full-time crew and house inventory owned by Ynvents
+  and based in New England, plus established industry partners in the market. The old rule here
+  said Boston was a "growing market only, do not claim full-time crew" — owner confirmed on
+  2026-08-01 that this is out of date and the crew/inventory are Ynvents' own. Boston now gets
+  the same footprint language as Denver and South Florida.
+- Individual hotel/property names are NEVER published for ANY market without the owner's explicit
+  approval, regardless of how well established the market is.
+- NEVER invent client names, venue names, past jobs, headcounts, or numbers. Where city pages
+  need depth, they use (a) public facts about the city's event market and (b) clearly-framed
+  representative scenarios ("what a typical X looks like") — never claimed past work.
+- Hotel partners named on site: Marriott, Hilton, Driftwood ("and much more") — BRANDS only.
+  Individual properties are NOT named publicly (the venue-partner model is white-label, so naming
+  a specific hotel may cut against it). Owner must approve before any property name goes on the site.
 - Testimonial: Canopy by Hilton (real, provided by client — do not alter wording)
 - YnventsIQ: internal AV-business management platform, in production internally, not yet licensed externally
 - Instagram: instagram.com/ynventsuccess
@@ -33,22 +49,44 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
 - 8 core pages: index, services, venue-partners, portfolio, virtual-hybrid, get-a-quote, careers, ynventsiq
 - 5 city landing pages: fort-lauderdale, miami, west-palm-beach, denver, boston (SEO/local-search pages)
 - Shared nav across all pages (no nav link to city pages — they're linked via footer "Serving:" list)
-- Footer includes locations list + social links + copyright, identical block on every page
+- Footer includes locations list + phone + social links + copyright, byte-identical on every page
 - Forms (get-a-quote, venue-partners) submit via Web3Forms — logic in /assets/forms.js, no page reload
 
+### City page anatomy (rebuilt 2026-08-01 — keep this shape for any new city page)
+Each city page runs: hero (with tel: CTA) → service-row with a city-specific H2 → "The Market"
+(3 `.local-map` zones describing that city's real event geography) → "Representative Build"
+(`.runsheet` — a clearly-framed typical event, NOT a claimed past job) → "Go Deeper" (4 `.link-card`
+internal links) → city FAQ (5 items) → final CTA with tel: → footer.
+Each page runs a DIFFERENT representative scenario so the pages don't converge again:
+Fort Lauderdale = 300-person general session, Miami = hybrid conference, West Palm Beach = 250-guest
+gala, Denver = multi-day conference with breakouts, Boston = first-event onboarding process.
+~800 words each; only the 4 link-cards and the closing tagline are shared prose.
+
 ## SEO
-- Every page has unique meta description, OG tags, canonical URL
-- Homepage + all 5 city pages have LocalBusiness JSON-LD structured data
+- Every page has unique meta description, OG tags, canonical URL, and a viewport meta tag
+  (the viewport tag was missing sitewide until 2026-08-01 — do not drop it, mobile layout dies without it)
+- og:image is per-page, not one shared image
+- Homepage + all 5 city pages: LocalBusiness JSON-LD with postal address, sameAs (Instagram +
+  Google Business), logo, foundingDate, hasOfferCatalog
+- City pages additionally carry BreadcrumbList and FAQPage JSON-LD
 - robots.txt + sitemap.xml at site root, must be updated if pages are added/removed
 
-## Known open items (not yet done, low priority per owner)
-- Careers page "View & Apply" button is a dead `#` link — needs a real posting/ATS link
+## Known open items
+- Careers page "View & Apply" button is a dead `#` link — needs a real posting/ATS link from owner
+- Canopy by Hilton testimonial appears only on the homepage. It should also go on the city page for
+  whichever property it came from — ASK the owner which one; do not guess.
+- Homepage stat block claims "4 Hotel Markets Under Contract" — unverified, confirm before editing near it
 - Hero image and some page photos are stock/generic Wixstatic URLs from the old site — owner may
   want to swap in real event photography later
+- No city landing pages for Cocoa Beach or Orlando, though both are active outreach markets
+  (owner deferred these on 2026-08-01)
 - No formal design system doc beyond this file + site.css itself
 
 ## Working conventions
 - This is a flat static site — no build step, no framework. Just write HTML/CSS/JS directly.
+- Files are CRLF. Keep it that way, or diffs blow up to whole-file rewrites.
+- No inline layout CSS. `get-a-quote.html` had an inline `display:grid` that silently bypassed the
+  responsive rules in site.css and broke the form on mobile — that's the failure mode to avoid.
 - Keep the shared nav/footer markup byte-identical across pages when adding a new page — copy from
   an existing page rather than retyping by hand (this caused real bugs during initial build).
 - Any push to `main` on GitHub deploys straight to production (ynvents.com) — no staging environment,
