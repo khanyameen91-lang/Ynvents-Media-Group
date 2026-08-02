@@ -1,0 +1,37 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=600, s-maxage=31536000, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ],
+  "redirects": [
+    { "source": "/services", "destination": "/services.html", "permanent": true },
+    { "source": "/venue-partners", "destination": "/venue-partners.html", "permanent": true },
+    { "source": "/portfolio", "destination": "/portfolio.html", "permanent": true },
+    { "source": "/virtual-hybrid", "destination": "/virtual-hybrid.html", "permanent": true },
+    { "source": "/get-a-quote", "destination": "/get-a-quote.html", "permanent": true },
+    { "source": "/careers", "destination": "/careers.html", "permanent": true },
+    { "source": "/ynventsiq", "destination": "/ynventsiq.html", "permanent": true },
+    { "source": "/fort-lauderdale", "destination": "/fort-lauderdale.html", "permanent": true },
+    { "source": "/miami", "destination": "/miami.html", "permanent": true },
+    { "source": "/west-palm-beach", "destination": "/west-palm-beach.html", "permanent": true },
+    { "source": "/denver", "destination": "/denver.html", "permanent": true },
+    { "source": "/boston", "destination": "/boston.html", "permanent": true }
+  ]
+}

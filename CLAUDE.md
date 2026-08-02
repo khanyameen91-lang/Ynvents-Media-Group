@@ -24,6 +24,9 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
   said Boston was a "growing market only, do not claim full-time crew" — owner confirmed on
   2026-08-01 that this is out of date and the crew/inventory are Ynvents' own. Boston now gets
   the same footprint language as Denver and South Florida.
+  RECONFIRMED 2026-08-02: a session brief again asserted "Boston is an expanding market only".
+  Owner confirmed that brief was stale and this section is correct. Boston keeps full-footprint
+  language. Do not downgrade it without a fresh, explicit instruction that references this line.
 - Individual hotel/property names are NEVER published for ANY market without the owner's explicit
   approval, regardless of how well established the market is.
 - NEVER invent client names, venue names, past jobs, headcounts, or numbers. Where city pages
@@ -70,20 +73,52 @@ gala, Denver = multi-day conference with breakouts, Boston = first-event onboard
   Google Business), logo, foundingDate, hasOfferCatalog
 - City pages additionally carry BreadcrumbList and FAQPage JSON-LD
 - robots.txt + sitemap.xml at site root, must be updated if pages are added/removed
+- 404.html at root — Vercel serves it automatically on a 404. Carries noindex, real nav/footer,
+  and four recovery link-cards. Keep it OUT of sitemap.xml.
+
+### Images (rebuilt 2026-08-02 — do not regress this)
+Every photo is hotlinked from static.wixstatic.com. They were previously linked at FULL original
+resolution: the homepage hero alone was 16.9 MB and portfolio.html shipped 33.9 MB across 24 images,
+which destroyed LCP and pushed og:image past the ~8 MB limit where Facebook/LinkedIn stop generating
+previews entirely. Every URL now carries a Wix CDN transform and the whole site is ~3.9 MB.
+NEVER add a bare wixstatic URL. Always append a transform, matched to the CSS container:
+  .hero-photo   (aspect 4/5)  -> /v1/fill/w_1000,h_1250,al_c,q_80,enc_auto/<name>  width=1000 height=1250
+  .service-photo(aspect 4/3)  -> /v1/fill/w_1000,h_750,al_c,q_80,enc_auto/<name>   width=1000 height=750
+  .brand-ext .photo (1/1)     -> /v1/fill/w_800,h_800,al_c,q_80,enc_auto/<name>    width=800  height=800
+  .masonry .item (natural AR) -> /v1/fit/w_800,h_1600,q_80,enc_auto/<name>  + the REAL output w/h
+  og:image / JSON-LD "image"  -> /v1/fill/w_1200,h_630,al_c,q_80,enc_auto/<name>
+Full URL shape is /media/<name>/v1/<spec>/<name> — the filename repeats. enc_auto content-negotiates
+AVIF/WebP. Masonry MUST use fit (not fill) or the column layout collapses to a uniform grid; get its
+width/height by fetching the transformed file and reading actual dimensions, never by guessing.
+Every <img> carries width+height (CLS). The homepage hero is fetchpriority=high and never lazy (LCP).
+
+### Structured data model (restructured 2026-08-02)
+There is ONE business entity: LocalBusiness @id https://www.ynvents.com/#business, defined on the
+homepage. Previously all 5 city pages ALSO declared full LocalBusiness nodes sharing the same phone
+and Fort Lauderdale address — 6 duplicate entities Google may collapse or discount. City pages and
+service pages now use Service with areaServed + provider {"@id": ".../#business"} referencing that
+one entity. Do not add another LocalBusiness node anywhere. City pages keep BreadcrumbList + FAQPage.
 
 ## Known open items
 - Careers page "View & Apply" button is a dead `#` link — needs a real posting/ATS link from owner
 - Canopy by Hilton testimonial appears only on the homepage. It should also go on the city page for
   whichever property it came from — ASK the owner which one; do not guess.
 - Homepage stat block claims "4 Hotel Markets Under Contract" — unverified, confirm before editing near it
-- Hero image and some page photos are stock/generic Wixstatic URLs from the old site — owner may
-  want to swap in real event photography later
+- Hero image and some page photos are still stock/generic Wixstatic assets from the old site — owner
+  may want to swap in real event photography later. They are now served through the Wix CDN at sane
+  sizes (see Images above), so this is a content question, not a performance one. Note the site still
+  depends on static.wixstatic.com staying up; self-hosting them under /assets is the durable fix.
 - No city landing pages for Cocoa Beach or Orlando, though both are active outreach markets
   (owner deferred these on 2026-08-01)
 - No formal design system doc beyond this file + site.css itself
 
 ## Working conventions
 - This is a flat static site — no build step, no framework. Just write HTML/CSS/JS directly.
+- vercel.json (added 2026-08-02) holds cache headers for /assets, security headers, and 12 explicit
+  extensionless->.html 308 redirects (/miami -> /miami.html) so bare URLs resolve. Deliberately does
+  NOT use Vercel cleanUrls: that inverts the redirect and would 308 every .html URL, breaking every
+  canonical, og:url, sitemap entry and internal link at once. The .html form stays canonical.
+  Add a redirect entry whenever a new page is added.
 - Files are CRLF. Keep it that way, or diffs blow up to whole-file rewrites.
 - No inline layout CSS. `get-a-quote.html` had an inline `display:grid` that silently bypassed the
   responsive rules in site.css and broke the form on mobile — that's the failure mode to avoid.
