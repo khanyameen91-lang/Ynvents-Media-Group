@@ -36,7 +36,11 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
   Individual properties are NOT named publicly (the venue-partner model is white-label, so naming
   a specific hotel may cut against it). Owner must approve before any property name goes on the site.
 - Testimonial: Canopy by Hilton (real, provided by client — do not alter wording)
-- YnventsIQ: internal AV-business management platform, in production internally, not yet licensed externally
+- YnventsIQ: internal AV-business management platform, in production internally, not yet licensed
+  externally. The homepage badge and the ynventsiq.html badge must agree. As of 2026-08-02 the
+  homepage said only "Coming Soon" while ynventsiq.html said "Live in Production — Licensing Coming
+  Soon"; the homepage now reads "YnventsIQ — Live in Production" and the lead below it carries the
+  licensing timing. Keep the homepage badge SHORT — it wraps inside its pill on mobile past ~30 chars.
 - Instagram: instagram.com/ynventsuccess
 - Google Business: https://maps.google.com/?cid=14696655073350239468
 - Web3Forms access key (both forms use the same key): 739d733c-2d32-4bd8-90fb-e9c1852ef2ba
@@ -53,7 +57,16 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
 - 5 city landing pages: fort-lauderdale, miami, west-palm-beach, denver, boston (SEO/local-search pages)
 - Shared nav across all pages (no nav link to city pages — they're linked via footer "Serving:" list)
 - Footer includes locations list + phone + social links + copyright, byte-identical on every page
-- Forms (get-a-quote, venue-partners) submit via Web3Forms — logic in /assets/forms.js, no page reload
+- Forms (get-a-quote, venue-partners, ynventsiq waitlist) submit via Web3Forms — logic in
+  /assets/forms.js, no page reload. forms.js binds to every `form[data-web3form]`, so a new form only
+  needs that attribute, an access_key hidden input, and the page must load /assets/forms.js.
+- The YnventsIQ waitlist was a DEAD form until 2026-08-02: a bare <div class="waitlist-form"> holding
+  an unnamed input and a type-less button, on a page that never loaded forms.js. Every "Join the
+  Waitlist" CTA silently discarded the email. If you add a form, verify it actually posts.
+- Success copy is per-form: forms.js reads `data-success` off the form and falls back to the default
+  "we will follow up within one business day" line. The waitlist sets its own, because that default
+  promises a response time the waitlist does not offer. Keep the .waitlist-form flex row as an inner
+  div — the <form> wraps it, so .form-result lands below the row instead of inside it.
 
 ### City page anatomy (rebuilt 2026-08-01 — keep this shape for any new city page)
 Each city page runs: hero (with tel: CTA) → service-row with a city-specific H2 → "The Market"
@@ -72,6 +85,8 @@ gala, Denver = multi-day conference with breakouts, Boston = first-event onboard
 - Homepage + all 5 city pages: LocalBusiness JSON-LD with postal address, sameAs (Instagram +
   Google Business), logo, foundingDate, hasOfferCatalog
 - City pages additionally carry BreadcrumbList and FAQPage JSON-LD
+- Every indexable page now carries BreadcrumbList (Home > Page). Only index.html (it IS the root) and
+  404.html (noindex) are exempt — do not add one to either.
 - robots.txt + sitemap.xml at site root, must be updated if pages are added/removed
 - 404.html at root — Vercel serves it automatically on a 404. Carries noindex, real nav/footer,
   and four recovery link-cards. Keep it OUT of sitemap.xml.

@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function (data) {
           if (data.success) {
             form.reset();
-            resultEl.textContent = "Thanks \u2014 we've got it and will follow up within one business day.";
+            resultEl.textContent = form.getAttribute('data-success') || "Thanks \u2014 we've got it and will follow up within one business day.";
             resultEl.className = 'form-result success';
           } else {
             resultEl.textContent = 'Something went wrong. Please email us directly at info@ynvents.com.';
