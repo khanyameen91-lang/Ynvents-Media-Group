@@ -132,6 +132,13 @@ identical quality. +faststart puts moov at byte 36 so it streams instead of wait
 download. Re-run these exact flags on any future re-export; CRF 27 (1.74 MB) and 30 (1.27 MB) were
 also measured and are fine if size ever matters more than text crispness.
 
+/assets/ynventsiq-dashboard.jpg is the homepage YnventsIQ visual - the Dashboard scene at t=47.5s,
+cropped (crop=1114:480:84:170) to the app window so the clip's baked-in headline does not fight the
+section H2. It replaced a hand-coded .iq-mock card whose rows named "Quote #4471 - Marriott WPB",
+a specific property, against the no-named-properties rule above. Both this and the video come from
+the same render, so they stay visually consistent - re-crop from the same timestamp after any
+re-export. 1114px wide is ~2.1x its ~530px slot, so it is already retina-ready.
+
 Poster: /assets/ynventsiq-platform-poster.jpg is the opening title card grabbed at t=2s, so the still
 matches frame 0 of the loop and the swap to playback is seamless. Because a real thumbnail now
 exists, ynventsiq.html carries VideoObject JSON-LD. If the video is re-exported, re-grab the poster

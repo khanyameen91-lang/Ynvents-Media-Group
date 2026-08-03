@@ -63,12 +63,8 @@ section{padding:92px 0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .iq-grid h2{font-size:36px;margin-bottom:16px}
 .iq-grid p.lead{font-size:16.5px;color:var(--muted);margin-bottom:28px;max-width:440px}
-.iq-mock{background:var(--ink);border-radius:8px;padding:22px;box-shadow:0 30px 60px -20px rgba(33,29,26,.35)}
-.iq-mock .bar{display:flex;gap:6px;margin-bottom:18px}
-.iq-mock .bar span{width:9px;height:9px;border-radius:50%;background:rgba(247,242,233,.2)}
-.iq-mock .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(247,242,233,.1);font-size:13px;color:rgba(247,242,233,.75)}
-.iq-mock .row:last-child{border-bottom:none}
-.iq-mock .pill{background:rgba(215,25,85,.2);color:#ef6ba0;font-size:11px;padding:3px 9px;border-radius:20px}
+.iq-shot{border-radius:8px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(33,29,26,.35);background:var(--ink);line-height:0}
+.iq-shot img{width:100%;height:auto;display:block}
 .testimonial blockquote{font-family:'Fraunces',serif;font-style:italic;font-size:30px;font-weight:500;line-height:1.4;max-width:800px}
 .testimonial cite{display:block;margin-top:24px;font-style:normal;font-size:13px;color:var(--muted)}
 .final-cta{text-align:center;padding:106px 0}
@@ -159,21 +155,8 @@ textarea{min-height:110px;resize:vertical}
 .feature-card{background:var(--paper-2);padding:30px 26px;border-radius:6px;border:1px solid var(--line)}
 .feature-card h3{font-size:19px;margin-bottom:10px}
 .feature-card p{font-size:14.5px;color:var(--muted);line-height:1.6}
-.browser-frame{max-width:920px;margin:0 auto;border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px -25px rgba(33,29,26,.3);background:#fff}
-.browser-chrome{background:#EDEBE6;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #DCD9D2}
-.browser-chrome .dot{width:9px;height:9px;border-radius:50%;background:#D4D1C9}
-.browser-chrome .url{margin-left:10px;background:#fff;border:1px solid #DCD9D2;border-radius:4px;padding:4px 12px;font-size:11.5px;color:#8A857A}
-.iq-preview{background:#F7F6F3;padding:22px}
-.iq-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
-.iq-stat{background:#fff;border:1px solid #E4E1D9;border-radius:6px;padding:14px 16px;display:flex;align-items:center;gap:10px}
-.iq-stat .swatch{width:30px;height:30px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;color:#fff}
-.iq-stat .label{font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:#9B968A}
-.iq-stat .value{font-weight:600;font-size:15.5px;color:#2B2822;margin-top:2px}
-.iq-chart{background:#fff;border:1px solid #E4E1D9;border-radius:6px;padding:16px 18px 10px;display:flex;align-items:flex-end;gap:8px;height:90px;margin-top:12px}
-.iq-chart .col{flex:1;background:#3FAE6E;border-radius:2px 2px 0 0}
-.iq-chart .col.light{background:#BFDCCB}
 .iq-caption{font-size:11px;color:var(--muted);padding:14px 0 16px;text-align:center}
-.video-frame{position:relative;max-width:920px;margin:0 auto;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px -25px rgba(33,29,26,.3);background:var(--ink)}
+.video-frame{position:relative;max-width:760px;margin:0 auto;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px -25px rgba(33,29,26,.3);background:var(--ink)}
 .video-frame video{width:100%;height:100%;display:block;object-fit:cover}
 .video-toggle{position:absolute;bottom:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(33,29,26,.55);opacity:0;transition:opacity .25s ease,background .25s ease;display:flex;align-items:center;justify-content:center}
 .video-frame:hover .video-toggle,.video-toggle:focus-visible{opacity:1}
@@ -230,7 +213,6 @@ textarea{min-height:110px;resize:vertical}
 .form-grid{grid-template-columns:1fr}
 .form-row,.form-row-3{grid-template-columns:1fr}
 .features-grid{grid-template-columns:1fr}
-.iq-stat-grid{grid-template-columns:repeat(2,1fr)}
 .waitlist{padding:36px 24px}
 .waitlist-form{flex-direction:column}
 .side-info{position:static}
