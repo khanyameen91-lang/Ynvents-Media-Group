@@ -107,6 +107,36 @@ AVIF/WebP. Masonry MUST use fit (not fill) or the column layout collapses to a u
 width/height by fetching the transformed file and reading actual dimensions, never by guessing.
 Every <img> carries width+height (CLS). The homepage hero is fetchpriority=high and never lazy (LCP).
 
+### Video (added 2026-08-02)
+/assets/ynventsiq-platform.mp4 - 2.31 MB, 1280x720, 52s, H.264, NO audio track. It replaced the
+hand-coded .browser-frame fake dashboard that used to sit on ynventsiq.html (that mock had invented
+dollar figures in it). This is the only binary of real weight in the repo - keep it that way.
+It is presented via .video-frame in site.css + /assets/video.js:
+  - preload="none" so the 16.5 MB is NOT fetched on page load. VERIFIED: before any click the
+    element sits at readyState 0 (HAVE_NOTHING), duration NaN, 0 buffered ranges. Do not change
+    preload, and do not add autoplay - either one re-introduces a 16.5 MB download on every visit
+    and undoes the image work above.
+  - a .video-poster <button> overlays the frame (brand-pink play control). video.js hides it on
+    click, adds native controls, plays, and restores the poster on ended.
+  - .video-frame is aspect-ratio 16/9 so there is no layout shift while nothing is loaded.
+Source: the video is rendered from the Claude Design project "YnventsIQ Platform Hype Video"
+(claude.ai/design, 12 scenes x SceneStage, 52s). That project is the EDITOR - re-render and re-export
+the MP4 there, do not try to run its .dc.html on this site (it needs React + the design-host runtime,
+and this site has no build step). Its data is fictional: clients "K. Ramsey"/"M. Ortiz"/"D. Foster"/
+"J. Coleman", venue "Riverfront Grand Hotel" - no real property names, which is why it is publishable.
+
+Compressed 2026-08-02 with ffmpeg from a 16.5 MB original (2644 kbps, wasteful for flat UI motion):
+  -c:v libx264 -profile:v high -preset slow -tune animation -crf 24 -pix_fmt yuv420p -an -movflags +faststart
+Result 2.31 MB, SSIM mean 0.9958 / worst frame 0.9908 vs the original - an 86% cut at visually
+identical quality. +faststart puts moov at byte 36 so it streams instead of waiting for a full
+download. Re-run these exact flags on any future re-export; CRF 27 (1.74 MB) and 30 (1.27 MB) were
+also measured and are fine if size ever matters more than text crispness.
+
+Poster: /assets/ynventsiq-platform-poster.jpg is the opening title card grabbed at t=2s, so the still
+matches frame 0 of the loop and the swap to playback is seamless. Because a real thumbnail now
+exists, ynventsiq.html carries VideoObject JSON-LD. If the video is re-exported, re-grab the poster
+or the schema thumbnail stops matching the content.
+
 ### Structured data model (restructured 2026-08-02)
 There is ONE business entity: LocalBusiness @id https://www.ynvents.com/#business, defined on the
 homepage. Previously all 5 city pages ALSO declared full LocalBusiness nodes sharing the same phone

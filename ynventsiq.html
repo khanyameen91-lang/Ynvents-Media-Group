@@ -29,6 +29,20 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "YnventsIQ platform tour",
+  "description": "A continuous tour of the YnventsIQ platform - pipeline, events, quotes, calendar, venues, CRM, operations, invoicing, reporting, and dashboard.",
+  "thumbnailUrl": "https://www.ynvents.com/assets/ynventsiq-platform-poster.jpg",
+  "contentUrl": "https://www.ynvents.com/assets/ynventsiq-platform.mp4",
+  "uploadDate": "2026-08-02",
+  "duration": "PT52S",
+  "isFamilyFriendly": true,
+  "publisher": {"@type": "Organization", "name": "Ynvents Media Group", "url": "https://www.ynvents.com/"}
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
@@ -54,26 +68,13 @@
 </div></section>
 
 <section style="padding-top:20px"><div class="wrap">
-  <div class="browser-frame">
-    <div class="browser-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="url">iq.ynvents.com/dashboard</div></div>
-    <div class="iq-preview">
-      <div class="iq-stat-grid">
-        <div class="iq-stat"><div class="swatch" style="background:#3FAE6E">$</div><div><div class="label">Collected Revenue</div><div class="value">$201,415.89</div></div></div>
-        <div class="iq-stat"><div class="swatch" style="background:#E0A030">⏱</div><div><div class="label">Pipeline Value</div><div class="value">$48,784.52</div></div></div>
-        <div class="iq-stat"><div class="swatch" style="background:#3E6FD9">§</div><div><div class="label">Contracted Value</div><div class="value">$256,964.16</div></div></div>
-        <div class="iq-stat"><div class="swatch" style="background:#1F9A8C">%</div><div><div class="label">Owed by Venues</div><div class="value">$290.00</div></div></div>
-      </div>
-      <div class="iq-chart">
-        <div class="col" style="height:50%"></div>
-        <div class="col" style="height:20%"></div>
-        <div class="col" style="height:85%"></div>
-        <div class="col light" style="height:12%"></div>
-        <div class="col light" style="height:38%"></div>
-        <div class="col light" style="height:8%"></div>
-      </div>
-    </div>
-    <div class="iq-caption">Revenue, pipeline, and commission — all in one dashboard</div>
+  <div class="video-frame">
+    <video muted loop playsinline preload="none" poster="/assets/ynventsiq-platform-poster.jpg" width="1280" height="720" disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback" aria-label="Continuous loop showing the YnventsIQ platform">
+      <source src="/assets/ynventsiq-platform.mp4" type="video/mp4">
+    </video>
+    <button type="button" class="video-toggle" data-state="paused" aria-label="Play the platform loop"><span class="bars"></span><span class="tri"></span></button>
   </div>
+  <div class="iq-caption">The YnventsIQ platform</div>
 </div></section>
 
 <section><div class="wrap">
@@ -144,5 +145,6 @@
   <div class="flinks"><a href="tel:+17544000067">(754) 400-0067</a><a href="http://www.instagram.com/ynventsuccess" target="_blank" rel="noopener">Instagram</a><a href="https://maps.google.com/?cid=14696655073350239468" target="_blank" rel="noopener">Google Business</a><a href="mailto:info@ynvents.com">info@ynvents.com</a></div>
 </div></footer>
 <script src="/assets/forms.js"></script>
+<script src="/assets/video.js"></script>
 </body>
 </html>
