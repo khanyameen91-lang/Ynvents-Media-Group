@@ -54,6 +54,21 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
 - Logo: SVG at /assets/logo-lockup.svg (wordmark) and icon-black.svg / icon-paper.svg (mark only,
   for dark/light backgrounds respectively)
 - All styling lives in one shared file: /assets/site.css — no per-page CSS
+- **site.css is cache-busted by content hash.** Every page links it as
+  `/assets/site.css?v=<first 8 chars of its sha256>`. vercel.json caches /assets for 600s in the
+  browser, so without this a CSS change takes up to 10 minutes to reach a returning visitor —
+  which is exactly how the stretched-portfolio fix appeared not to work on 2026-08-06.
+  **After ANY edit to site.css, regenerate the hash on all pages, in the repo root:**
+  ```
+  HASH=$(sha256sum assets/site.css | cut -c1-8) && perl -i -pe "s{/assets/site\.css\?v=[a-f0-9]+}{/assets/site.css?v=$HASH}" *.html
+  ```
+  To check it is current (the two lines must match):
+  ```
+  sha256sum assets/site.css | cut -c1-8; grep -h -o 'site\.css?v=[a-f0-9]*' index.html | head -1
+  ```
+  A stale hash is silent — the page keeps working, it just serves old CSS to repeat visitors.
+- /assets/forms.js is NOT yet cache-busted and carries the same 600s lag. Worth the same
+  treatment if it is ever edited.
 
 ## Site structure
 - 7 core pages: index, services, venue-partners, portfolio, virtual-hybrid, get-a-quote, careers
