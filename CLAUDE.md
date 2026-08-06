@@ -36,11 +36,14 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
   Individual properties are NOT named publicly (the venue-partner model is white-label, so naming
   a specific hotel may cut against it). Owner must approve before any property name goes on the site.
 - Testimonial: Canopy by Hilton (real, provided by client — do not alter wording)
-- YnventsIQ: internal AV-business management platform, in production internally, not yet licensed
-  externally. The homepage badge and the ynventsiq.html badge must agree. As of 2026-08-02 the
-  homepage said only "Coming Soon" while ynventsiq.html said "Live in Production — Licensing Coming
-  Soon"; the homepage now reads "YnventsIQ — Live in Production" and the lead below it carries the
-  licensing timing. Keep the homepage badge SHORT — it wraps inside its pill on mobile past ~30 chars.
+- YnventsIQ is NOT mentioned anywhere on this website. Removed 2026-08-06 at the owner's
+  instruction: the dedicated page, the nav link, the homepage section, the dashboard screenshot,
+  the platform video and poster, and video.js all went. `/ynventsiq` and `/ynventsiq.html`
+  301-redirect to the homepage via vercel.json. Do not reintroduce it — no nav link, no homepage
+  panel, no footer mention — unless the owner asks.
+  Context: the platform was renamed VenWeave (venweave.com) and now markets itself on its own
+  domain, so ynvents.com no longer carries it. Everything removed is recoverable from git history
+  (last present at commit 83aecc5) and on the local branch `backup/iq-removal`.
 - Instagram: instagram.com/ynventsuccess
 - Google Business: https://maps.google.com/?cid=14696655073350239468
 - Web3Forms access key (both forms use the same key): 739d733c-2d32-4bd8-90fb-e9c1852ef2ba
@@ -53,16 +56,18 @@ Deployed via GitHub → Vercel. Repo IS the deploy source — push to `main` dep
 - All styling lives in one shared file: /assets/site.css — no per-page CSS
 
 ## Site structure
-- 8 core pages: index, services, venue-partners, portfolio, virtual-hybrid, get-a-quote, careers, ynventsiq
+- 7 core pages: index, services, venue-partners, portfolio, virtual-hybrid, get-a-quote, careers
+- Nav carries 4 links (Services, Venue Partners, Portfolio, Careers) plus the Get a Quote button
 - 5 city landing pages: fort-lauderdale, miami, west-palm-beach, denver, boston (SEO/local-search pages)
 - Shared nav across all pages (no nav link to city pages — they're linked via footer "Serving:" list)
 - Footer includes locations list + phone + social links + copyright, byte-identical on every page
-- Forms (get-a-quote, venue-partners, ynventsiq waitlist) submit via Web3Forms — logic in
+- Forms (get-a-quote, venue-partners) submit via Web3Forms — logic in
   /assets/forms.js, no page reload. forms.js binds to every `form[data-web3form]`, so a new form only
   needs that attribute, an access_key hidden input, and the page must load /assets/forms.js.
-- The YnventsIQ waitlist was a DEAD form until 2026-08-02: a bare <div class="waitlist-form"> holding
-  an unnamed input and a type-less button, on a page that never loaded forms.js. Every "Join the
-  Waitlist" CTA silently discarded the email. If you add a form, verify it actually posts.
+- Cautionary tale worth keeping: the old YnventsIQ waitlist was a DEAD form for its whole life — a
+  bare <div class="waitlist-form"> holding an unnamed input and a type-less button, on a page that
+  never loaded forms.js. Every "Join the Waitlist" click silently discarded the email. If you add a
+  form, verify it actually posts before shipping it.
 - Success copy is per-form: forms.js reads `data-success` off the form and falls back to the default
   "we will follow up within one business day" line. The waitlist sets its own, because that default
   promises a response time the waitlist does not offer. Keep the .waitlist-form flex row as an inner
@@ -107,42 +112,22 @@ AVIF/WebP. Masonry MUST use fit (not fill) or the column layout collapses to a u
 width/height by fetching the transformed file and reading actual dimensions, never by guessing.
 Every <img> carries width+height (CLS). The homepage hero is fetchpriority=high and never lazy (LCP).
 
-### Video (added 2026-08-02)
-/assets/ynventsiq-platform.mp4 - 2.31 MB, 1280x720, 52s, H.264, NO audio track. It replaced the
-hand-coded .browser-frame fake dashboard that used to sit on ynventsiq.html (that mock had invented
-dollar figures in it). This is the only binary of real weight in the repo - keep it that way.
-It is presented via .video-frame in site.css + /assets/video.js:
-  - preload="none" so the 16.5 MB is NOT fetched on page load. VERIFIED: before any click the
-    element sits at readyState 0 (HAVE_NOTHING), duration NaN, 0 buffered ranges. Do not change
-    preload, and do not add autoplay - either one re-introduces a 16.5 MB download on every visit
-    and undoes the image work above.
-  - a .video-poster <button> overlays the frame (brand-pink play control). video.js hides it on
-    click, adds native controls, plays, and restores the poster on ended.
-  - .video-frame is aspect-ratio 16/9 so there is no layout shift while nothing is loaded.
-Source: the video is rendered from the Claude Design project "YnventsIQ Platform Hype Video"
-(claude.ai/design, 12 scenes x SceneStage, 52s). That project is the EDITOR - re-render and re-export
-the MP4 there, do not try to run its .dc.html on this site (it needs React + the design-host runtime,
-and this site has no build step). Its data is fictional: clients "K. Ramsey"/"M. Ortiz"/"D. Foster"/
-"J. Coleman", venue "Riverfront Grand Hotel" - no real property names, which is why it is publishable.
+### Video / heavy media — none currently
 
-Compressed 2026-08-02 with ffmpeg from a 16.5 MB original (2644 kbps, wasteful for flat UI motion):
-  -c:v libx264 -profile:v high -preset slow -tune animation -crf 24 -pix_fmt yuv420p -an -movflags +faststart
-Result 2.31 MB, SSIM mean 0.9958 / worst frame 0.9908 vs the original - an 86% cut at visually
-identical quality. +faststart puts moov at byte 36 so it streams instead of waiting for a full
-download. Re-run these exact flags on any future re-export; CRF 27 (1.74 MB) and 30 (1.27 MB) were
-also measured and are fine if size ever matters more than text crispness.
+There are no video or raster-photo binaries in this repo. There was one: a 2.31 MB YnventsIQ
+platform MP4 plus a poster and a dashboard screenshot, all removed 2026-08-06 with the rest of
+the YnventsIQ material. Recover from commit 83aecc5 if ever needed.
 
-/assets/ynventsiq-dashboard.jpg is the homepage YnventsIQ visual - the Dashboard scene at t=47.5s,
-cropped (crop=1114:480:84:170) to the app window so the clip's baked-in headline does not fight the
-section H2. It replaced a hand-coded .iq-mock card whose rows named "Quote #4471 - Marriott WPB",
-a specific property, against the no-named-properties rule above. Both this and the video come from
-the same render, so they stay visually consistent - re-crop from the same timestamp after any
-re-export. 1114px wide is ~2.1x its ~530px slot, so it is already retina-ready.
+Two things from that work worth keeping, if video is ever added again:
 
-Poster: /assets/ynventsiq-platform-poster.jpg is the opening title card grabbed at t=2s, so the still
-matches frame 0 of the loop and the swap to playback is seamless. Because a real thumbnail now
-exists, ynventsiq.html carries VideoObject JSON-LD. If the video is re-exported, re-grab the poster
-or the schema thumbnail stops matching the content.
+- Serve it with `preload="none"` and a poster <button> overlay rather than autoplay. The original
+  16.5 MB file would otherwise download on every single visit and undo all the image optimisation
+  documented above. Give the frame a fixed aspect-ratio so nothing shifts while it is unloaded.
+- The compression recipe that got 16.5 MB down to 2.31 MB at SSIM 0.9958 (visually identical, 86%
+  smaller) for flat UI motion:
+    ffmpeg -c:v libx264 -profile:v high -preset slow -tune animation -crf 24 -pix_fmt yuv420p -an -movflags +faststart
+  `+faststart` puts the moov atom near byte 0 so it streams rather than waiting on a full download.
+  CRF 27 and 30 were also measured and are fine if size ever outweighs text crispness.
 
 ### Structured data model (restructured 2026-08-02)
 There is ONE business entity: LocalBusiness @id https://www.ynvents.com/#business, defined on the

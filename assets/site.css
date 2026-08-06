@@ -56,16 +56,7 @@ section{padding:92px 0}
 .coverage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px}
 .coverage-grid .stat{font-family:'Fraunces',serif;font-size:38px;color:var(--gold)}
 .coverage-grid p{color:rgba(247,242,233,.62);font-size:14px;margin-top:8px}
-.iq-section{background:var(--paper-2)}
-.iq-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.iq-badge{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:20px}
-.iq-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pulse 1.8s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.iq-grid h2{font-size:36px;margin-bottom:16px}
-.iq-grid p.lead{font-size:16.5px;color:var(--muted);margin-bottom:28px;max-width:440px}
-.iq-shot{border-radius:8px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(33,29,26,.35);background:var(--ink);line-height:0}
-.iq-shot img{width:100%;height:auto;display:block}
-.testimonial blockquote{font-family:'Fraunces',serif;font-style:italic;font-size:30px;font-weight:500;line-height:1.4;max-width:800px}
+@keyframes.testimonial blockquote{font-family:'Fraunces',serif;font-style:italic;font-size:30px;font-weight:500;line-height:1.4;max-width:800px}
 .testimonial cite{display:block;margin-top:24px;font-style:normal;font-size:13px;color:var(--muted)}
 .final-cta{text-align:center;padding:106px 0}
 .final-cta h2{font-size:40px;max-width:620px;margin:18px auto 32px}
@@ -151,11 +142,6 @@ textarea{min-height:110px;resize:vertical}
 .job-card .tags{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .job-card .tags span{background:var(--paper);border:1px solid var(--line);font-size:11.5px;padding:5px 12px;border-radius:20px;color:var(--muted)}
 .empty-state{text-align:center;padding:50px 30px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:15px}
-.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.feature-card{background:var(--paper-2);padding:30px 26px;border-radius:6px;border:1px solid var(--line)}
-.feature-card h3{font-size:19px;margin-bottom:10px}
-.feature-card p{font-size:14.5px;color:var(--muted);line-height:1.6}
-.iq-caption{font-size:11px;color:var(--muted);padding:14px 0 16px;text-align:center}
 .video-frame{position:relative;max-width:760px;margin:0 auto;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 50px -25px rgba(33,29,26,.3);background:var(--ink)}
 .video-frame video{width:100%;height:100%;display:block;object-fit:cover}
 .video-toggle{position:absolute;bottom:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(33,29,26,.55);opacity:0;transition:opacity .25s ease,background .25s ease;display:flex;align-items:center;justify-content:center}
@@ -166,11 +152,6 @@ textarea{min-height:110px;resize:vertical}
 .video-toggle[data-state="playing"] .tri{display:none}
 .video-toggle[data-state="paused"] .bars{display:none}
 @media (prefers-reduced-motion:reduce){.video-toggle{opacity:1}}
-.waitlist{background:var(--paper-2);border-radius:10px;padding:56px;text-align:center}
-.waitlist h2{font-size:32px;margin-bottom:14px}
-.waitlist p{color:var(--muted);max-width:480px;margin:0 auto 28px}
-.waitlist-form{display:flex;gap:10px;max-width:440px;margin:0 auto}
-.waitlist-form input{flex:1}
 .side-info{position:sticky;top:110px}
 .side-info .promise{margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}
 .side-info .promise p{font-size:14.5px;color:var(--muted);margin-top:10px}
@@ -202,7 +183,6 @@ textarea{min-height:110px;resize:vertical}
 .page-hero h1{font-size:34px}
 .services-grid{grid-template-columns:repeat(2,1fr)}
 .coverage-grid{grid-template-columns:1fr}
-.iq-grid{grid-template-columns:1fr}
 .hotel-cta{grid-template-columns:1fr}
 .hotel-cta .stat-block{text-align:left}
 .service-row .wrap{grid-template-columns:1fr}
@@ -212,9 +192,6 @@ textarea{min-height:110px;resize:vertical}
 .full-service{grid-template-columns:1fr}
 .form-grid{grid-template-columns:1fr}
 .form-row,.form-row-3{grid-template-columns:1fr}
-.features-grid{grid-template-columns:1fr}
-.waitlist{padding:36px 24px}
-.waitlist-form{flex-direction:column}
 .side-info{position:static}
 }
 @media (max-width:640px){.masonry{column-count:2}}
