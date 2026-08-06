@@ -134,7 +134,7 @@ textarea{min-height:110px;resize:vertical}
 .checkbox-group input[type=checkbox]{width:auto}
 .masonry{column-count:4;column-gap:14px}
 .masonry .item{break-inside:avoid;margin-bottom:14px;border-radius:6px;overflow:hidden;background:var(--paper-2)}
-.masonry .item img{width:100%;display:block;transition:transform .3s ease}
+.masonry .item img{width:100%;height:auto;display:block;transition:transform .3s ease}
 .masonry .item:hover img{transform:scale(1.04)}
 .job-card{background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:30px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:16px}
 .job-card .meta{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}

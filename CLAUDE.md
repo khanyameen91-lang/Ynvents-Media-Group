@@ -112,6 +112,16 @@ AVIF/WebP. Masonry MUST use fit (not fill) or the column layout collapses to a u
 width/height by fetching the transformed file and reading actual dimensions, never by guessing.
 Every <img> carries width+height (CLS). The homepage hero is fetchpriority=high and never lazy (LCP).
 
+**The trap those width/height attributes set (hit on 2026-08-06):** the HTML `width`/`height`
+attributes are presentational hints, i.e. real CSS width/height. If a rule sets `width` but not
+`height`, the attribute's height wins and the image is DISTORTED — not merely mis-sized.
+`.masonry .item img` was `width:100%` with no height, so every portfolio photo rendered at
+column-width x its full attribute height (an 800x600 shown at 583x600). Fixed by adding
+`height:auto`. Any rule that sizes an <img> must ALSO state a height — `height:auto` to keep the
+natural ratio, or `height:100%` with `object-fit:cover` to crop deliberately, which is what
+`.service-photo img`, `.brand-ext .photo img` and `.hero-photo img.bg` already do. Verified
+2026-08-06 that no other image on any page is height-locked to its attribute.
+
 ### Video / heavy media — none currently
 
 There are no video or raster-photo binaries in this repo. There was one: a 2.31 MB YnventsIQ
